@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>도서몰 - 내 정보</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{layout :: body(content=~{::div.container})}">
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">내 계정 정보</h5>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>계정명:</strong> <span th:text="${user.username}">username</span></p>
+                        <p><strong>이름:</strong> <span th:text="${user.name}">사용자명</span></p>
+                        <p><strong>주소:</strong> <span th:text="${user.address}">주소</span></p>
+                        <p><strong>전화번호:</strong> <span th:text="${user.phoneNumber}">전화번호</span></p>
+
+                        <div class="d-grid gap-2 mt-3">
+                            <a href="/purchases" class="btn btn-outline-primary">내 구매 내역</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">내 정보 수정</h5>
+                    </div>
+                    <div class="card-body">
+                        <!-- 성공 메시지 표시 -->
+                        <div th:if="${success}" class="alert alert-success">
+                            정보가 성공적으로 업데이트되었습니다.
+                        </div>
+
+                        <form th:action="@{/profile}" method="post" th:object="${userDto}">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">이름</label>
+                                <input type="text" class="form-control" id="name" th:field="*{name}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="address" class="form-label">주소</label>
+                                <input type="text" class="form-control" id="address" th:field="*{address}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="phoneNumber" class="form-label">전화번호</label>
+                                <input type="text" class="form-control" id="phoneNumber" th:field="*{phoneNumber}" required>
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary">정보 수정</button>
+                            </div>
+                        </form>
+
+                        <hr class="my-4">
+
+                        <h5>비밀번호 변경</h5>
+                        <form th:action="@{/profile/password}" method="post">
+                            <div class="mb-3">
+                                <label for="currentPassword" class="form-label">현재 비밀번호</label>
+                                <input type="password" class="form-control" id="currentPassword" name="currentPassword" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="newPassword" class="form-label">새 비밀번호</label>
+                                <input type="password" class="form-control" id="newPassword" name="newPassword" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="confirmPassword" class="form-label">비밀번호 확인</label>
+                                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-warning">비밀번호 변경</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

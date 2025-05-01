@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>도서몰 - 홈</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{layout :: body(content=~{::div.container})}">
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8 text-center">
+        <h1 class="display-4 mb-4">도서몰에 오신 것을 환영합니다</h1>
+        <p class="lead">다양한 도서를 찾아보고 구매할 수 있는 공간입니다.</p>
+
+        <div class="mt-5">
+          <a href="/books" class="btn btn-primary btn-lg me-3">
+            <i class="bi bi-book"></i> 도서 목록 보기
+          </a>
+
+          <!-- 로그인하지 않은 경우 -->
+          <a sec:authorize="!isAuthenticated()" href="/login" class="btn btn-outline-secondary btn-lg">
+            <i class="bi bi-person"></i> 로그인
+          </a>
+
+          <!-- 로그인한 경우 -->
+          <a sec:authorize="isAuthenticated()" href="/profile" class="btn btn-outline-success btn-lg me-3">
+            <i class="bi bi-person-circle"></i> 내 정보
+          </a>
+          <a sec:authorize="isAuthenticated()" href="/logout" class="btn btn-outline-danger btn-lg">
+            <i class="bi bi-box-arrow-right"></i> 로그아웃
+          </a>
+        </div>
+
+        <!-- 추천 도서 섹션 -->
+        <div class="row mt-5">
+          <h2 class="mb-4">추천 도서</h2>
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">축구의 역사</h5>
+                <h6 class="card-subtitle mb-2 text-muted">굿스포츠</h6>
+                <p class="card-text">가격: 7,000원</p>
+                <a href="/books/1" class="btn btn-sm btn-primary">자세히 보기</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">피겨 교본</h5>
+                <h6 class="card-subtitle mb-2 text-muted">굿스포츠</h6>
+                <p class="card-text">가격: 8,000원</p>
+                <a href="/books/5" class="btn btn-sm btn-primary">자세히 보기</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Olympic Champions</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Pearson</h6>
+                <p class="card-text">가격: 13,000원</p>
+                <a href="/books/10" class="btn btn-sm btn-primary">자세히 보기</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

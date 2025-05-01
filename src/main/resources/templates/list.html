@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>도서몰 - 도서 목록</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{layout :: body(content=~{::div.container})}">
+  <div class="container mt-5">
+    <h2>도서 목록</h2>
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <form action="/books/search" method="get" class="d-flex">
+          <input type="text" name="keyword" class="form-control me-2" placeholder="도서명 또는 출판사로 검색">
+          <button class="btn btn-outline-primary" type="submit">검색</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-striped table-hover">
+        <thead class="table-dark">
+        <tr>
+          <th>bookid</th>
+          <th>bookname</th>
+          <th>publisher</th>
+          <th>price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book : ${books}" class="clickable-row" th:onclick="'window.location=\'/books/' + ${book.bookid} + '\''">
+          <td th:text="${book.bookid}">1</td>
+          <td><a th:href="@{/books/{id}(id=${book.bookid}).html}" th:text="${book.bookname}">축구의 역사</a></td>
+          <td th:text="${book.publisher}">굿스포츠</td>
+          <td th:text="${book.price}">7000</td>
+        </tr>
+        <!-- 기본 데이터는 검색된 이미지에서 가져온 것입니다 -->
+        <tr class="clickable-row" onclick="window.location='/books/1.html'">
+          <td>1</td>
+          <td><a href="/books/1.html">축구의 역사</a></td>
+          <td>굿스포츠</td>
+          <td>7000</td>
+        </tr>
+        <tr class="clickable-row" onclick="window.location='/books/2.html'">
+          <td>2</td>
+          <td><a href="/books/2.html">축구 아는 여자</a></td>
+          <td>나무수</td>
+          <td>13000</td>
+        </tr>
+        <tr class="clickable-row" onclick="window.location='/books/3.html'">
+          <td>3</td>
+          <td><a href="/books/3.html">축구의 이해</a></td>
+          <td>대한미디어</td>
+          <td>22000</td>
+        </tr>
+        <tr class="clickable-row" onclick="window.location='/books/4.html'">
+          <td>4</td>
+          <td><a href="/books/4.html">골프 바이블</a></td>
+          <td>대한미디어</td>
+          <td>35000</td>
+        </tr>
+        <tr class="clickable-row" onclick="window.location='/books/5.html'">
+          <td>5</td>
+          <td><a href="/books/5.html">피겨 교본</a></td>
+          <td>굿스포츠</td>
+          <td>8000</td>
+        </tr>
+        <tr class="clickable-row" onclick="window.location='/books/6.html'">
+          <td>6</td>
+          <td><a href="/books/6.html">역도 단계별기술</a></td>
+          <td>굿스포츠</td>
+          <td>6000</td>
+        </tr>
+        <tr class="clickable-row" onclick="window.location='/books/7.html'">
+          <td>7</td>
+          <td><a href="/books/7.html">야구의 추억</a></td>
+          <td>이상미디어</td>
+          <td>20000</td>
+        </tr>
+        <tr class="clickable-row" onclick="window.location='/books/8.html'">
+          <td>8</td>
+          <td><a href="/books/8.html">야구를 부탁해</a></td>
+          <td>이상미디어</td>
+          <td>13000</td>
+        </tr>
+        <tr class="clickable-row" onclick="window.location='/books/9.html'">
+          <td>9</td>
+          <td><a href="/books/9.html">올림픽 이야기</a></td>
+          <td>삼성당</td>
+          <td>7500</td>
+        </tr>
+        <tr class="clickable-row" onclick="window.location='/books/10.html'">
+          <td>10</td>
+          <td><a href="/books/10.html">Olympic Champions</a></td>
+          <td>Pearson</td>
+          <td>13000</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<style>
+  .clickable-row {
+    cursor: pointer;
+  }
+  .clickable-row:hover {
+    background-color: rgba(0, 123, 255, 0.1) !important;
+  }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

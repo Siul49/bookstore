@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>도서몰 - 로그인</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{layout :: body(content=~{::div.container})}">
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">📚 도서몰 로그인</h4>
+          </div>
+          <div class="card-body">
+            <!-- 오류 메시지 표시 -->
+            <div th:if="${param.error}" class="alert alert-danger">
+              계정 정보가 일치하지 않습니다
+            </div>
+            <div th:if="${param.logout}" class="alert alert-success">
+              안전하게 로그아웃 되었습니다
+            </div>
+
+            <form th:action="@{/login}" method="post">
+              <div class="mb-3">
+                <label for="username" class="form-label">계정명</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">비밀번호</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+              </div>
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">로그인</button>
+              </div>
+            </form>
+
+            <div class="mt-4 text-center">
+              <p>처음 방문하셨나요?</p>
+              <a href="/register" class="btn btn-outline-secondary">회원가입 바로가기</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

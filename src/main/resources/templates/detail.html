@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>도서몰 - 도서 상세</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{layout :: body(content=~{::div.container})}">
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-4">
+        <img th:if="${book.imageFileName}" th:src="@{/images/{filename}(filename=${book.imageFileName})}"
+             class="img-fluid rounded" alt="도서 이미지">
+        <img th:unless="${book.imageFileName}" src="/images/default-book.jpg"
+             class="img-fluid rounded" alt="기본 도서 이미지">
+      </div>
+      <div class="col-md-8">
+        <h2 th:text="${book.bookname}">도서 제목</h2>
+        <div class="mb-3">
+          <span class="badge bg-primary" th:text="${book.category}">분류</span>
+        </div>
+        <table class="table">
+          <tr>
+            <th style="width: 150px;">도서 ID</th>
+            <td th:text="${book.bookid}">1</td>
+          </tr>
+          <tr>
+            <th>출판사</th>
+            <td th:text="${book.publisher}">출판사명</td>
+          </tr>
+          <tr>
+            <th>가격</th>
+            <td th:text="${#numbers.formatDecimal(book.price, 0, 'COMMA', 0, 'POINT')} + '원'">00,000원</td>
+          </tr>
+          <tr>
+            <th>도서 분류</th>
+            <td th:text="${book.category}">스포츠</td>
+          </tr>
+        </table>
+
+        <div class="mt-4">
+          <a href="/books" class="btn btn-secondary">목록으로</a>
+
+          <!-- 로그인한 경우에만 구매 버튼 표시 -->
+          <form sec:authorize="isAuthenticated()" method="post" action="/purchases" class="d-inline">
+            <input type="hidden" name="bookId" th:value="${book.bookid}">
+            <button type="submit" class="btn btn-primary">구매하기</button>
+          </form>
+
+          <!-- 로그인하지 않은 경우 -->
+          <a sec:authorize="!isAuthenticated()" href="/login.html" class="btn btn-primary">
+            구매하려면 로그인이 필요합니다
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-5">
+      <div class="col-12">
+        <h3>도서 소개</h3>
+        <p th:text="${book.description}">
+          도서 소개가 여기에 표시됩니다. 백엔드에서 해당 정보를 제공해야 합니다.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
